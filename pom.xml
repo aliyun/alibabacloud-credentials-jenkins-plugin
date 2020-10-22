@@ -4,15 +4,15 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>3.43</version>
+        <version>4.4</version>
         <relativePath />
     </parent>
     <groupId>com.alibabacloud.jenkins</groupId>
-    <artifactId>alibabacloud-credentials</artifactId>
+    <artifactId>alibabacloud-credentials-jenkins</artifactId>
     <version>1.0</version>
     <packaging>hpi</packaging>
     <properties>
-        <jenkins.version>2.164.1</jenkins.version>
+        <jenkins.version>2.190.1</jenkins.version>
         <java.level>8</java.level>
         <aliyun-java-sdk.version>4.5.6</aliyun-java-sdk.version>
         <aliyun-ecs-java-sdk.version>4.19.9</aliyun-ecs-java-sdk.version>
