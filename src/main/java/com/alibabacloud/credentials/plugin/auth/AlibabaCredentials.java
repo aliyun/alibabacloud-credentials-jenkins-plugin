@@ -9,14 +9,21 @@ import com.cloudbees.plugins.credentials.NameWith;
 import com.cloudbees.plugins.credentials.impl.BaseStandardCredentials;
 import edu.umd.cs.findbugs.annotations.CheckForNull;
 import hudson.Extension;
+import hudson.security.ACL;
 import hudson.util.FormValidation;
 import hudson.util.Secret;
+import jenkins.model.Jenkins;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+
 import static com.cloudbees.plugins.credentials.CredentialsScope.SYSTEM;
+import static hudson.security.Permission.CREATE;
+import static hudson.security.Permission.UPDATE;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -76,6 +83,8 @@ public class AlibabaCredentials extends BaseStandardCredentials implements Aliba
         return secretKey.getPlainText();
     }
 
+
+
     @Extension
     public static class DescriptorImpl extends CredentialsDescriptor {
 
@@ -84,8 +93,17 @@ public class AlibabaCredentials extends BaseStandardCredentials implements Aliba
             return "Alibaba Cloud Credentials";
         }
 
+        public  ACL getACL() {
+            return Jenkins.get().getACL();
+        }
+
+        @RequirePOST
         public FormValidation doCheckSecretKey(@QueryParameter("accessKey") String accessKey,
                                                @QueryParameter String value) {
+            if(!this.getACL().hasPermission(CREATE) && !getACL().hasPermission(UPDATE)){
+                return FormValidation.error("permission is error");
+            }
+
             if (StringUtils.isBlank(accessKey) && StringUtils.isBlank(value)) {
                 return FormValidation.ok();
             }
