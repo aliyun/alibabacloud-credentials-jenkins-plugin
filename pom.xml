@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.alibabacloud.jenkins</groupId>
     <artifactId>alibabacloud-credentials</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <properties>
         <jenkins.version>2.190.1</jenkins.version>
