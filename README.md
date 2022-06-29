@@ -39,3 +39,9 @@ Once your Jenkins is installed, you can download alibab cloud credentials plugin
 Once you've installed the plugin, you can verify AK, SK or save it in "manage credentials"
 ![](docs/images/jenkins.credential.png)
 ![](docs/images/jenkins.verify.png)
+
+# Contact us
+* DingTalk Group Number：44723358
+* DingTalk Group QR code
+
+  ![](docs/images/qrcode.png)
