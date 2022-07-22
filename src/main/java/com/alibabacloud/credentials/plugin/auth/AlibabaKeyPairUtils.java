@@ -97,7 +97,7 @@ public class AlibabaKeyPairUtils {
             log.error("getPublicFingerprint error");
             return null;
         }
-        AlibabaClient client = new AlibabaClient(credentials, regionNo);
+        AlibabaClient client = new AlibabaClient(credentials, regionNo, false);
         List<KeyPair> keyPairs = client.describeKeyPairs(null, pfp);
         if (CollectionUtils.isEmpty(keyPairs)) {
             log.error("find keyPairs error. regionNo: {} pfp: {}", regionNo, pfp);
@@ -105,6 +105,22 @@ public class AlibabaKeyPairUtils {
         }
         return keyPairs.get(0);
     }
+
+    public static KeyPair find(String pemData, AlibabaCredentials credentials, String regionNo, boolean isVpcEnv) {
+        String pfp = getPublicFingerprint(pemData);
+        if (StringUtils.isBlank(pfp)) {
+            log.error("getPublicFingerprint error");
+            return null;
+        }
+        AlibabaClient client = new AlibabaClient(credentials, regionNo, isVpcEnv);
+        List<KeyPair> keyPairs = client.describeKeyPairs(null, pfp);
+        if (CollectionUtils.isEmpty(keyPairs)) {
+            log.error("find keyPairs error. regionNo: {} pfp: {}", regionNo, pfp);
+            return null;
+        }
+        return keyPairs.get(0);
+    }
+
 
     /**
      * Is this file really a private key?

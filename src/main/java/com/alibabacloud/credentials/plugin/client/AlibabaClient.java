@@ -30,13 +30,17 @@ public class AlibabaClient {
     @Getter
     private String regionNo;
 
-    public AlibabaClient(AlibabaCloudCredentials credentials, String regionNo) {
+    public AlibabaClient(AlibabaCloudCredentials credentials, String regionNo, boolean isVpcEnv) {
         IClientProfile profile = DefaultProfile.getProfile(regionNo,
             credentials.getAccessKeyId(),
             credentials.getAccessKeySecret());
+        // 如果JenkinsMaster是在VPC内网环境下, 则使用内网域名
+        if(isVpcEnv) {
+            profile.enableUsingVpcEndpoint();
+        }
         this.client = new DefaultAcsClient(profile);
         this.regionNo = regionNo;
-        log.info("AlibabaClient init success. regionNo: {}", regionNo);
+        log.info("AlibabaClient init success. regionNo: {} isVpcEnv: {}", regionNo, isVpcEnv);
     }
 
     public List<Region> describeRegions() {
