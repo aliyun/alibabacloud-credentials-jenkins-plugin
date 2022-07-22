@@ -115,7 +115,7 @@ public class AlibabaCredentials extends BaseStandardCredentials implements Aliba
             }
 
             AlibabaCloudCredentials credentials = new AlibabaCredentials(accessKey, value);
-            AlibabaClient client = new AlibabaClient(credentials, DEFAULT_ECS_REGION);
+            AlibabaClient client = new AlibabaClient(credentials, DEFAULT_ECS_REGION, false);
             List<DescribeRegionsResponse.Region> regions = client.describeRegions();
             if (CollectionUtils.isEmpty(regions)) {
                 return FormValidation.error("Illegal ak/sk");
